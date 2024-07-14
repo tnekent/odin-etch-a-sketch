@@ -1,28 +1,34 @@
-function colorizePixel(pixelEl) {
-    pixelEl.style.backgroundColor = getRandomCSSColor();
-}
-
-function darkenPixel(pixelEl) {
-    let currentOpacity = pixelEl.style.opacity;
-    currentOpacity = parseFloat(currentOpacity) * 100;
-    if (currentOpacity !== 100) {
-        const newOpacity = currentOpacity + 10;
-        pixelEl.style.opacity = newOpacity + "%"; 
-    }
-}
-
-function transformPixel() {
-    const pixelEl = this;
-    colorizePixel(pixelEl);
-    darkenPixel(pixelEl);
-}
-
 function getRandomCSSColor() {
     const redValue = parseInt(Math.random() * 255);
     const greenValue = parseInt(Math.random() * 255);
     const blueValue = parseInt(Math.random() * 255);
 
-    return `rgb(${redValue},${greenValue},${blueValue})`;
+    return `${redValue},${greenValue},${blueValue}`;
+}
+
+function getOpacityValue(rgbString) {
+    if (rgbString[3] !== "a")
+        return 1;
+
+    const splitStr = rgbString.split(",");
+    const opacityValue = splitStr[3].slice(0, -1);
+    return parseFloat(opacityValue);
+}
+
+function increasePixelOpacity(pixelEl) {
+    const pixelBgColor = pixelEl.style.backgroundColor;
+    const currentOpacity = getOpacityValue(pixelBgColor);
+    if (currentOpacity !== 1) {
+        const newOpacity = currentOpacity + .1;
+        return newOpacity; 
+    }
+}
+
+function transformPixel() {
+    const pixelEl = this;
+    const randomRGB = getRandomCSSColor();
+    const nextOpacity = increasePixelOpacity(pixelEl);
+    pixelEl.style.backgroundColor = `rgba(${randomRGB},${nextOpacity})`;
 }
 
 function getUserPixelLineCountPref() {
@@ -56,7 +62,7 @@ function setupCanvas() {
         const pxlDiv = document.createElement("div");
         containerDiv.appendChild(pxlDiv);
         pxlDiv.style.flexBasis = pxlWidthPercent + "%";
-        pxlDiv.style.opacity = "0";
+        pxlDiv.style.backgroundColor = "rgba(0,0,0,0)"
         pxlDiv.classList.add("pixel");
 
         pxlDiv.addEventListener("mouseenter", transformPixel);
