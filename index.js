@@ -1,16 +1,20 @@
-function colorizePixel() {
-    const pixelEl = this;
+function colorizePixel(pixelEl) {
     pixelEl.style.backgroundColor = getRandomCSSColor();
 }
 
-function darkenPixel() {
-    const pixelEl = this;
+function darkenPixel(pixelEl) {
     let currentOpacity = pixelEl.style.opacity;
     currentOpacity = parseFloat(currentOpacity) * 100;
     if (currentOpacity !== 100) {
         const newOpacity = currentOpacity + 10;
         pixelEl.style.opacity = newOpacity + "%"; 
     }
+}
+
+function transformPixel() {
+    const pixelEl = this;
+    colorizePixel(pixelEl);
+    darkenPixel(pixelEl);
 }
 
 function getRandomCSSColor() {
@@ -55,8 +59,7 @@ function setupCanvas() {
         pxlDiv.style.opacity = "0";
         pxlDiv.classList.add("pixel");
 
-        pxlDiv.addEventListener("mouseenter", colorizePixel)
-        pxlDiv.addEventListener("mouseenter", darkenPixel)
+        pxlDiv.addEventListener("mouseenter", transformPixel);
     }
 }
 
