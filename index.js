@@ -24,6 +24,7 @@ function setupCanvas() {
     const TOTAL_PXL_COUNT = PXL_LINE_COUNT ** 2;
 
     const containerDiv = document.querySelector(".container");
+    containerDiv.innerHTML = "";
     const containerWidth = containerDiv.offsetWidth;
 
     const pxlWidth = containerWidth / PXL_LINE_COUNT;
