@@ -3,6 +3,16 @@ function colorizePixel() {
     pixelEl.style.backgroundColor = getRandomCSSColor();
 }
 
+function darkenPixel() {
+    const pixelEl = this;
+    let currentOpacity = pixelEl.style.opacity;
+    currentOpacity = parseFloat(currentOpacity) * 100;
+    if (currentOpacity !== 100) {
+        const newOpacity = currentOpacity + 10;
+        pixelEl.style.opacity = newOpacity + "%"; 
+    }
+}
+
 function getRandomCSSColor() {
     const redValue = parseInt(Math.random() * 255);
     const greenValue = parseInt(Math.random() * 255);
@@ -42,9 +52,11 @@ function setupCanvas() {
         const pxlDiv = document.createElement("div");
         containerDiv.appendChild(pxlDiv);
         pxlDiv.style.flexBasis = pxlWidthPercent + "%";
+        pxlDiv.style.opacity = "0";
         pxlDiv.classList.add("pixel");
 
         pxlDiv.addEventListener("mouseenter", colorizePixel)
+        pxlDiv.addEventListener("mouseenter", darkenPixel)
     }
 }
 
