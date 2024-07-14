@@ -1,6 +1,14 @@
 function colorizePixel() {
     const pixelEl = this;
-    pixelEl.style.backgroundColor = "yellow";
+    pixelEl.style.backgroundColor = getRandomCSSColor();
+}
+
+function getRandomCSSColor() {
+    const redValue = parseInt(Math.random() * 255);
+    const greenValue = parseInt(Math.random() * 255);
+    const blueValue = parseInt(Math.random() * 255);
+
+    return `rgb(${redValue},${greenValue},${blueValue})`;
 }
 
 function getUserPixelLineCountPref() {
