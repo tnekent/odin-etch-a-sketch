@@ -12,4 +12,11 @@ for (let i = 0; i < TOTAL_PXL_COUNT; i++) {
     containerDiv.appendChild(pxlDiv);
     pxlDiv.style.flexBasis = pxlWidthPercent + "%";
     pxlDiv.classList.add("pixel");
+
+    pxlDiv.addEventListener("mouseenter", colorizePixel)
+}
+
+function colorizePixel() {
+    const pixelEl = this;
+    pixelEl.style.backgroundColor = "yellow";
 }
