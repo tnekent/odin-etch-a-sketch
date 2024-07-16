@@ -71,10 +71,14 @@ function getUserPixelLineCountPref() {
 
 function setupCanvas() {
     const pixelLineCount = getUserPixelLineCountPref();
-    
+    const containerDiv = setupContainer();
+    setupPixel(containerDiv, pixelLineCount);
+}
+
+function setupContainer() {
     const containerDiv = document.querySelector(".container");
     containerDiv.innerHTML = "";
-    setupPixel(containerDiv, pixelLineCount);
+    return containerDiv;
 }
 
 function setupPixel(containerDiv, pixelLineCount) {
