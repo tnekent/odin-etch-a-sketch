@@ -70,22 +70,22 @@ function getUserPixelLineCountPref() {
 }
 
 function setupCanvas() {
-    const PXL_LINE_COUNT = getUserPixelLineCountPref();
-    const TOTAL_PXL_COUNT = PXL_LINE_COUNT ** 2;
+    const pixelLineCount = getUserPixelLineCountPref();
+    const totalPixelCount = pixelLineCount ** 2;
 
     const containerDiv = document.querySelector(".container");
     containerDiv.innerHTML = "";
     const containerWidth = containerDiv.offsetWidth;
 
-    const pxlWidth = containerWidth / PXL_LINE_COUNT;
+    const pxlWidth = containerWidth / pixelLineCount;
     const pxlWidthPercent = pxlWidth / containerWidth * 100;
 
-    for (let i = 0; i < TOTAL_PXL_COUNT; i++) {
+    for (let i = 0; i < totalPixelCount; i++) {
         const pxlDiv = document.createElement("div");
         containerDiv.appendChild(pxlDiv);
         pxlDiv.style.flexBasis = pxlWidthPercent + "%";
         pxlDiv.style.backgroundColor = "rgba(0,0,0,0)"
-        pxlDiv.style.borderWidth = getBorderSidesByIndex(pxlDiv, i, PXL_LINE_COUNT);
+        pxlDiv.style.borderWidth = getBorderSidesByIndex(pxlDiv, i, pixelLineCount);
         pxlDiv.classList.add("pixel");
 
         pxlDiv.addEventListener("mouseenter", transformPixel);
