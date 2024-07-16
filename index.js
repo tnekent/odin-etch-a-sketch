@@ -1,3 +1,5 @@
+const BORDER_SIZE = "1px";
+
 function getRandomCSSColor() {
     const redValue = parseInt(Math.random() * 255);
     const greenValue = parseInt(Math.random() * 255);
@@ -29,6 +31,26 @@ function transformPixel() {
     const randomRGB = getRandomCSSColor();
     const nextOpacity = increasePixelOpacity(pixelEl);
     pixelEl.style.backgroundColor = `rgba(${randomRGB},${nextOpacity})`;
+}
+
+function getBorderSidesByIndex(pixelEl, i, pixelLineCount) {
+    // All pixels will have the bottom, and right borders set
+    // and we need to only check the first row to set top
+    // borders and the first column to set the left borders
+    let topWidth = "0";
+    let leftWidth = "0";
+    const rightWidth = BORDER_SIZE;
+    const bottomWidth = BORDER_SIZE;
+
+    if (i < pixelLineCount) {
+        topWidth = BORDER_SIZE;
+    }
+    
+    if (i % pixelLineCount === 0) {
+        leftWidth = BORDER_SIZE;
+    }
+
+    return `${topWidth} ${rightWidth} ${bottomWidth} ${leftWidth}`
 }
 
 function getUserPixelLineCountPref() {
@@ -63,6 +85,7 @@ function setupCanvas() {
         containerDiv.appendChild(pxlDiv);
         pxlDiv.style.flexBasis = pxlWidthPercent + "%";
         pxlDiv.style.backgroundColor = "rgba(0,0,0,0)"
+        pxlDiv.style.borderWidth = getBorderSidesByIndex(pxlDiv, i, PXL_LINE_COUNT);
         pxlDiv.classList.add("pixel");
 
         pxlDiv.addEventListener("mouseenter", transformPixel);

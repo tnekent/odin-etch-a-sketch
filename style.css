@@ -32,5 +32,6 @@ body {
 }
 
 .pixel {
-    border: 1px solid black;
+    border-style: solid;
+    border-color: black;
 }
